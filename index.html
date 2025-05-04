@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ChapSSH</title>
+  <link rel="stylesheet" href="node_modules/xterm/css/xterm.css" />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>ChapSSH</h2>
+        <button id="newConnectionBtn" class="btn">Neue Verbindung</button>
+      </div>
+      <div class="favorites">
+        <h3>Favoriten</h3>
+        <ul id="favoritesList"></ul>
+      </div>
+      <div class="recent">
+        <h3>Letzte Verbindungen</h3>
+        <ul id="recentList"></ul>
+      </div>
+    </div>
+    <div class="main-content">
+      <div id="tabs-container">
+        <!-- Tabs werden dynamisch hinzugefügt -->
+      </div>
+      <div id="terminal-container"></div>
+      <div class="status-bar">Bereit</div>
+    </div>
+  </div>
+  
+  <!-- Verbindungsdialog -->
+  <div id="connectionDialog" class="dialog">
+    <div class="dialog-content">
+      <h2>Neue Verbindung</h2>
+      <form id="connectionForm">
+        <div class="form-group">
+          <label for="host">Host:</label>
+          <input type="text" id="host" required>
+        </div>
+        <div class="form-group">
+          <label for="port">Port:</label>
+          <input type="number" id="port" value="22">
+        </div>
+        <div class="form-group">
+          <label for="username">Benutzername:</label>
+          <input type="text" id="username" required>
+        </div>
+        <div class="form-group">
+          <label for="authType">Authentifizierung:</label>
+          <select id="authType">
+            <option value="password">Passwort</option>
+            <option value="key">Private Key</option>
+          </select>
+        </div>
+        <div class="form-group" id="passwordGroup">
+          <label for="password">Passwort:</label>
+          <input type="password" id="password">
+        </div>
+        <div class="form-group" id="keyGroup" style="display: none;">
+          <label for="keyPath">Pfad zum Private Key:</label>
+          <div style="display: flex; gap: 8px;">
+            <input type="text" id="keyPath" style="flex-grow: 1;">
+            <button type="button" id="browseKey" class="btn">Durchsuchen</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="saveName">Als Favorit speichern:</label>
+          <input type="text" id="saveName" placeholder="Name des Favoriten (optional)">
+        </div>
+        <div class="form-group password-manager-option">
+          <label class="checkbox-label">
+            <input type="checkbox" id="saveToPasswordManager" checked>
+            Im Passwort-Manager speichern
+          </label>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Verbinden</button>
+          <button type="button" class="btn" id="cancelConnection">Abbrechen</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script src="node_modules/xterm/lib/xterm.js"></script>
+  <script src="node_modules/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>
